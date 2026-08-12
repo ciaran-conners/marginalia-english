@@ -123,9 +123,9 @@
   .nav-toggle span{ display:block; width:24px; height:2px; background:var(--ink); margin:5px 0; }
 
   /* ---------- hero ---------- */
-  .hero{ position:relative; z-index:1; padding:96px 0 120px; }
+  .hero{ position:relative; z-index:1; padding:52px 0 110px; }
   .hero .wrap{
-    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:start;
   }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -259,9 +259,10 @@
     border-top:1px solid var(--line);
   }
   .step{
-    counter-increment:step; padding:28px 24px 0 0; border-right:1px solid var(--line);
+    counter-increment:step; padding:28px 32px 0; border-right:1px solid var(--line);
   }
-  .step:last-child{ border-right:none; }
+  .step:first-child{ padding-left:0; }
+  .step:last-child{ border-right:none; padding-right:0; }
   .step::before{
     content: counter(step, decimal-leading-zero);
     font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--clay);
@@ -302,28 +303,26 @@
     font-size:1rem; font-weight:700; white-space:nowrap;
   }
 
-  /* ---------- contact ---------- */
+  /* ---------- booking ---------- */
   .contact{ background:var(--paper-2); }
   .contact .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
-  .contact-form{ display:grid; gap:16px; }
-  .field{ display:grid; gap:7px; }
-  .field label{ font-size:0.88rem; font-weight:600; color:var(--ink); }
-  .field input, .field textarea{
-    font-family:var(--sans); font-size:0.98rem; padding:13px 14px;
-    border:1.5px solid var(--line); border-radius:var(--radius); background:var(--paper);
-    color:var(--ink); resize:vertical;
-  }
-  .field input:focus, .field textarea:focus{ border-color:var(--clay); }
-  .contact-form .btn{ justify-self:start; margin-top:6px; }
-  .hp-field{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
-  .form-status{ font-size:0.92rem; line-height:1.5; margin:2px 0 0; display:none; }
-  .form-status.is-ok{ display:block; color:var(--olive); font-weight:600; }
-  .form-status.is-err{ display:block; color:var(--pen); font-weight:600; }
-  .contact-form button[disabled]{ opacity:0.55; cursor:progress; }
   .contact-side h2{ font-size:clamp(1.9rem, 3vw, 2.3rem); }
   .contact-side p{ color:var(--ink-soft); margin-top:16px; font-size:1.02rem; }
   .contact-detail{ margin-top:26px; display:grid; gap:10px; font-size:0.96rem; }
   .contact-detail a{ text-decoration:none; color:var(--clay); font-weight:600; }
+  .booking-card{
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:6px; padding:32px 30px;
+  }
+  .booking-card h3{ font-size:1.18rem; }
+  .booking-card p{ color:var(--ink-soft); font-size:0.98rem; margin-top:13px; }
+  .booking-card .btn{ margin-top:26px; }
+  .booking-points{
+    list-style:none; padding:0; margin:26px 0 0; display:grid; gap:12px;
+    font-size:0.93rem; color:var(--ink-soft); line-height:1.55;
+  }
+  .booking-points li{ display:flex; gap:10px; align-items:baseline; }
+  .booking-points li::before{ content:"\2713"; color:var(--olive); font-weight:700; }
 
   /* ---------- footer ---------- */
   footer{ padding:56px 0; border-top:1px solid var(--line); }
@@ -340,8 +339,8 @@
     .offer-grid{ grid-template-columns:1fr; }
     .about .wrap{ grid-template-columns:1fr; }
     .portrait{ max-width:280px; }
-    .step-grid{ grid-template-columns:1fr 1fr; }
-    .step{ border-right:none; border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:24px; }
+    .step-grid{ grid-template-columns:1fr 1fr; gap:0 40px; }
+    .step{ border-right:none; border-bottom:1px solid var(--line); padding:28px 0 24px; margin-bottom:24px; }
     .format .wrap{ grid-template-columns:1fr; }
     .testi-grid{ grid-template-columns:1fr; }
     .contact .wrap{ grid-template-columns:1fr; }
@@ -369,12 +368,15 @@
       <li><a href="#lessons">Lessons</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#how">How it works</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#booking">Book</a></li>
     </ul>
     <div style="display:flex; align-items:center; gap:16px;">
       <span class="badge">Madrid &amp; online</span>
       <a href="es/" class="lang-link" hreflang="es">ES</a>
-      <a href="#contact" class="nav-cta">Book a call</a>
+      <!-- Booking link: Google Calendar appointment schedule. Same URL in the hero
+           CTA, the contact section, and es/index.html — update all four together. -->
+      <a href="https://calendar.app.google/3NBCwgwJJ7fkQWBe8" class="nav-cta"
+         target="_blank" rel="noopener">Book a call</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
@@ -392,7 +394,8 @@
         <h1>English that sounds <span class="accent">like you.</span></h1>
         <p class="lede">Friendly one-to-one lessons for teens applying to university, professionals writing under pressure, and anyone who’d like their English to feel more natural. We work on whatever you’ve actually got on your plate.</p>
         <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary">Book a free 20-minute call</a>
+          <a href="https://calendar.app.google/3NBCwgwJJ7fkQWBe8" class="btn btn-primary"
+             target="_blank" rel="noopener">Book a free 20-minute call</a>
           <a href="#how" class="btn btn-ghost">See how lessons work</a>
         </div>
         <ul class="credentials">
@@ -478,12 +481,12 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">How it works</span>
-        <h2>From first message to first draft</h2>
+        <h2>From first call to first draft</h2>
       </div>
       <div class="step-grid">
         <div class="step">
-          <h3>Say hello</h3>
-          <p>Send a quick message about what you’re working on — an application, a job, a deadline. No pressure at all.</p>
+          <h3>Book a slot</h3>
+          <p>Take any free 20 minutes on my calendar. Nothing to prepare, and no pressure at all.</p>
         </div>
         <div class="step">
           <h3>Free 20-minute call</h3>
@@ -558,43 +561,32 @@
   </section>
   -->
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
+  <!-- BOOKING -->
+  <section class="contact" id="booking">
     <div class="wrap">
       <div class="contact-side">
-        <span class="eyebrow">Get in touch</span>
+        <span class="eyebrow">Book a call</span>
         <h2>Start with a free call</h2>
-        <p>Tell me a little about what you’re working on — an application, a job, an exam, or a writing habit you’d like to shake. I’ll get back to you within 24 hours.</p>
+        <p>Twenty minutes, no charge, no obligation. We’ll talk about what you’re working on — an application, a job, an exam, or a writing habit you’d like to shake — and I’ll tell you honestly whether I’m the right person to help.</p>
         <div class="contact-detail">
           <div>📍 Madrid, Spain — in person &amp; online</div>
-          <div>↩️ Replies within 24 hours</div>
+          <div>📅 Weekday slots, 20 minutes each</div>
         </div>
       </div>
-      <!-- Paste your Formspree endpoint into the action below. Your email address is
-           configured in the Formspree dashboard, never here, so it stays off the page. -->
-      <form class="contact-form" id="contactForm" method="POST"
-            action="https://formspree.io/f/YOUR_FORM_ID" novalidate>
-        <div class="field">
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
-        </div>
-        <div class="field">
-          <label for="message">What are you working on?</label>
-          <textarea id="message" name="message" rows="4" placeholder="A college essay, a work presentation, general fluency…"></textarea>
-        </div>
-        <div class="hp-field" aria-hidden="true">
-          <label for="website">Leave this field empty</label>
-          <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
-        </div>
-        <button type="submit" class="btn btn-primary">Send message</button>
-        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-      </form>
+      <!-- Booking link: Google Calendar appointment schedule. Same URL in the header
+           CTA, the hero CTA, and es/index.html — update all six together. -->
+      <div class="booking-card">
+        <h3>Pick a time that suits you</h3>
+        <p>Choose any free slot on my calendar. You’ll get a confirmation and a video link straight away, so there’s no waiting on a reply from me.</p>
+        <a href="https://calendar.app.google/3NBCwgwJJ7fkQWBe8" class="btn btn-primary" target="_blank" rel="noopener">See available times</a>
+        <ul class="booking-points">
+          <li>Free, with no obligation to book lessons afterwards</li>
+          <li>Nothing to prepare — bring a question or a piece of writing if you have one</li>
+          <li>Times are shown in your own timezone</li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </section>  </section>
 
 </main>
 
@@ -604,7 +596,7 @@
     <ul class="foot-links">
       <li><a href="#lessons">Lessons</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#booking">Book</a></li>
     </ul>
     <span class="foot-note">© 2026 Ciarán Conners, Madrid.</span>
   </div>
@@ -624,39 +616,6 @@
     });
   });
 
-  var form = document.getElementById('contactForm');
-  var statusEl = document.getElementById('formStatus');
-  var MSG = {
-    unconfigured: 'This form isn\u2019t connected yet. Please check back shortly.',
-    sending:      'Sending\u2026',
-    ok:           'Thanks! Your message is on its way \u2014 I\u2019ll get back to you within 24 hours.',
-    err:          'Sorry, that didn\u2019t send. Please try again in a moment.'
-  };
-  function say(kind, text){
-    statusEl.className = 'form-status' + (kind ? ' is-' + kind : '');
-    statusEl.textContent = text;
-  }
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    if (form.action.indexOf('YOUR_FORM_ID') !== -1) { say('err', MSG.unconfigured); return; }
-    var btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    say('', MSG.sending);
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(function(r){
-      if (!r.ok) throw new Error('bad status');
-      form.reset();
-      say('ok', MSG.ok);
-    }).catch(function(){
-      say('err', MSG.err);
-    }).then(function(){
-      btn.disabled = false;
-    });
-  });
 </script>
 
 </body>

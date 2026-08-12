@@ -123,9 +123,9 @@
   .nav-toggle span{ display:block; width:24px; height:2px; background:var(--ink); margin:5px 0; }
 
   /* ---------- hero ---------- */
-  .hero{ position:relative; z-index:1; padding:96px 0 120px; }
+  .hero{ position:relative; z-index:1; padding:52px 0 110px; }
   .hero .wrap{
-    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:start;
   }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -259,9 +259,10 @@
     border-top:1px solid var(--line);
   }
   .step{
-    counter-increment:step; padding:28px 24px 0 0; border-right:1px solid var(--line);
+    counter-increment:step; padding:28px 32px 0; border-right:1px solid var(--line);
   }
-  .step:last-child{ border-right:none; }
+  .step:first-child{ padding-left:0; }
+  .step:last-child{ border-right:none; padding-right:0; }
   .step::before{
     content: counter(step, decimal-leading-zero);
     font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--clay);
@@ -302,28 +303,26 @@
     font-size:1rem; font-weight:700; white-space:nowrap;
   }
 
-  /* ---------- contact ---------- */
+  /* ---------- booking ---------- */
   .contact{ background:var(--paper-2); }
   .contact .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
-  .contact-form{ display:grid; gap:16px; }
-  .field{ display:grid; gap:7px; }
-  .field label{ font-size:0.88rem; font-weight:600; color:var(--ink); }
-  .field input, .field textarea{
-    font-family:var(--sans); font-size:0.98rem; padding:13px 14px;
-    border:1.5px solid var(--line); border-radius:var(--radius); background:var(--paper);
-    color:var(--ink); resize:vertical;
-  }
-  .field input:focus, .field textarea:focus{ border-color:var(--clay); }
-  .contact-form .btn{ justify-self:start; margin-top:6px; }
-  .hp-field{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
-  .form-status{ font-size:0.92rem; line-height:1.5; margin:2px 0 0; display:none; }
-  .form-status.is-ok{ display:block; color:var(--olive); font-weight:600; }
-  .form-status.is-err{ display:block; color:var(--pen); font-weight:600; }
-  .contact-form button[disabled]{ opacity:0.55; cursor:progress; }
   .contact-side h2{ font-size:clamp(1.9rem, 3vw, 2.3rem); }
   .contact-side p{ color:var(--ink-soft); margin-top:16px; font-size:1.02rem; }
   .contact-detail{ margin-top:26px; display:grid; gap:10px; font-size:0.96rem; }
   .contact-detail a{ text-decoration:none; color:var(--clay); font-weight:600; }
+  .booking-card{
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:6px; padding:32px 30px;
+  }
+  .booking-card h3{ font-size:1.18rem; }
+  .booking-card p{ color:var(--ink-soft); font-size:0.98rem; margin-top:13px; }
+  .booking-card .btn{ margin-top:26px; }
+  .booking-points{
+    list-style:none; padding:0; margin:26px 0 0; display:grid; gap:12px;
+    font-size:0.93rem; color:var(--ink-soft); line-height:1.55;
+  }
+  .booking-points li{ display:flex; gap:10px; align-items:baseline; }
+  .booking-points li::before{ content:"\2713"; color:var(--olive); font-weight:700; }
 
   /* ---------- footer ---------- */
   footer{ padding:56px 0; border-top:1px solid var(--line); }
@@ -340,8 +339,8 @@
     .offer-grid{ grid-template-columns:1fr; }
     .about .wrap{ grid-template-columns:1fr; }
     .portrait{ max-width:280px; }
-    .step-grid{ grid-template-columns:1fr 1fr; }
-    .step{ border-right:none; border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:24px; }
+    .step-grid{ grid-template-columns:1fr 1fr; gap:0 40px; }
+    .step{ border-right:none; border-bottom:1px solid var(--line); padding:28px 0 24px; margin-bottom:24px; }
     .format .wrap{ grid-template-columns:1fr; }
     .testi-grid{ grid-template-columns:1fr; }
     .contact .wrap{ grid-template-columns:1fr; }
@@ -369,12 +368,15 @@
       <li><a href="#lessons">Clases</a></li>
       <li><a href="#about">Sobre mí</a></li>
       <li><a href="#how">Cómo funciona</a></li>
-      <li><a href="#contact">Contacto</a></li>
+      <li><a href="#booking">Reservar</a></li>
     </ul>
     <div style="display:flex; align-items:center; gap:16px;">
       <span class="badge">Madrid y online</span>
       <a href="../" class="lang-link" hreflang="en">EN</a>
-      <a href="#contact" class="nav-cta">Reserva una llamada</a>
+      <!-- Enlace de reservas: agenda de citas de Google Calendar. La misma URL en el CTA
+           del hero, en la sección de contacto y en ../index.html — actualízalas juntas. -->
+      <a href="https://calendar.app.google/3NBCwgwJJ7fkQWBe8" class="nav-cta"
+         target="_blank" rel="noopener">Reserva una llamada</a>
       <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
@@ -392,7 +394,8 @@
         <h1>Un inglés que suena <span class="accent">a ti.</span></h1>
         <p class="lede">Clases particulares y cercanas para adolescentes que preparan su solicitud a la universidad, profesionales que escriben bajo presión y cualquier persona que quiera que su inglés suene natural. Trabajamos con lo que de verdad tienes entre manos.</p>
         <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary">Reserva una llamada gratuita de 20 minutos</a>
+          <a href="https://calendar.app.google/3NBCwgwJJ7fkQWBe8" class="btn btn-primary"
+             target="_blank" rel="noopener">Reserva una llamada gratuita de 20 minutos</a>
           <a href="#how" class="btn btn-ghost">Mira cómo funcionan las clases</a>
         </div>
         <ul class="credentials">
@@ -478,12 +481,12 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Cómo funciona</span>
-        <h2>Del primer mensaje al primer borrador</h2>
+        <h2>De la primera llamada al primer borrador</h2>
       </div>
       <div class="step-grid">
         <div class="step">
-          <h3>Escríbeme</h3>
-          <p>Cuéntame en qué estás trabajando: una solicitud, un trabajo, una fecha de entrega. Sin ningún compromiso.</p>
+          <h3>Reserva un hueco</h3>
+          <p>Coge cualquier hueco libre de 20 minutos en mi calendario. No hay que preparar nada y sin ningún compromiso.</p>
         </div>
         <div class="step">
           <h3>Llamada gratuita de 20 minutos</h3>
@@ -558,43 +561,32 @@
   </section>
   -->
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
+  <!-- RESERVA -->
+  <section class="contact" id="booking">
     <div class="wrap">
       <div class="contact-side">
-        <span class="eyebrow">Ponte en contacto</span>
+        <span class="eyebrow">Reserva una llamada</span>
         <h2>Empieza con una llamada gratuita</h2>
-        <p>Cuéntame un poco en qué estás trabajando: una solicitud, un trabajo, un examen o esa costumbre al escribir que te gustaría cambiar. Te respondo en menos de 24 horas.</p>
+        <p>Veinte minutos, gratis y sin compromiso. Hablamos de lo que tienes entre manos —una solicitud, un trabajo, un examen o esa costumbre al escribir que te gustaría cambiar— y te digo con sinceridad si soy la persona adecuada para ayudarte.</p>
         <div class="contact-detail">
           <div>📍 Madrid, España — presencial y online</div>
-          <div>↩️ Respondo en menos de 24 horas</div>
+          <div>📅 Huecos de lunes a viernes, de 20 minutos</div>
         </div>
       </div>
-      <!-- Pega aquí tu endpoint de Formspree. Tu dirección de correo se configura en el
-           panel de Formspree, nunca en esta página, así que no queda expuesta. -->
-      <form class="contact-form" id="contactForm" method="POST"
-            action="https://formspree.io/f/YOUR_FORM_ID" novalidate>
-        <div class="field">
-          <label for="name">Nombre</label>
-          <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required>
-        </div>
-        <div class="field">
-          <label for="email">Correo electrónico</label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
-        </div>
-        <div class="field">
-          <label for="message">¿En qué estás trabajando?</label>
-          <textarea id="message" name="message" rows="4" placeholder="Un ensayo para la universidad, una presentación de trabajo, fluidez general…"></textarea>
-        </div>
-        <div class="hp-field" aria-hidden="true">
-          <label for="website">Deja este campo vacío</label>
-          <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
-        </div>
-        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
-        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-      </form>
+      <!-- Enlace de reservas: agenda de citas de Google Calendar. La misma URL en el CTA
+           de la cabecera, en el del hero y en ../index.html — actualízalas juntas. -->
+      <div class="booking-card">
+        <h3>Elige la hora que te venga bien</h3>
+        <p>Coge cualquier hueco libre de mi calendario. Recibes la confirmación y el enlace de vídeo al momento, sin esperar a que yo conteste.</p>
+        <a href="https://calendar.app.google/3NBCwgwJJ7fkQWBe8" class="btn btn-primary" target="_blank" rel="noopener">Ver horas disponibles</a>
+        <ul class="booking-points">
+          <li>Gratis y sin compromiso de contratar clases después</li>
+          <li>No hay que preparar nada: trae una duda o un texto, si quieres</li>
+          <li>Las horas se muestran en tu zona horaria</li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </section>  </section>
 
 </main>
 
@@ -604,7 +596,7 @@
     <ul class="foot-links">
       <li><a href="#lessons">Clases</a></li>
       <li><a href="#about">Sobre mí</a></li>
-      <li><a href="#contact">Contacto</a></li>
+      <li><a href="#booking">Reservar</a></li>
     </ul>
     <span class="foot-note">© 2026 Ciarán Conners, Madrid.</span>
   </div>
@@ -624,39 +616,6 @@
     });
   });
 
-  var form = document.getElementById('contactForm');
-  var statusEl = document.getElementById('formStatus');
-  var MSG = {
-    unconfigured: 'Este formulario a\u00fan no est\u00e1 conectado. Vuelve a intentarlo en un rato.',
-    sending:      'Enviando\u2026',
-    ok:           '\u00a1Gracias! Tu mensaje ya est\u00e1 en camino \u2014 te respondo en menos de 24 horas.',
-    err:          'Vaya, no se ha podido enviar. \u00bfPruebas otra vez en un momento?'
-  };
-  function say(kind, text){
-    statusEl.className = 'form-status' + (kind ? ' is-' + kind : '');
-    statusEl.textContent = text;
-  }
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    if (form.action.indexOf('YOUR_FORM_ID') !== -1) { say('err', MSG.unconfigured); return; }
-    var btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    say('', MSG.sending);
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(function(r){
-      if (!r.ok) throw new Error('bad status');
-      form.reset();
-      say('ok', MSG.ok);
-    }).catch(function(){
-      say('err', MSG.err);
-    }).then(function(){
-      btn.disabled = false;
-    });
-  });
 </script>
 
 </body>
