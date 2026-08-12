@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciarán Conners — English tutoring, Madrid &amp; online</title>
+<style>
+  :root{
+    --paper:      #FCFBF9;
+    --paper-2:    #F4F1EA;
+    --ink:        #1A1D28;
+    --ink-soft:   #565C6E;
+    --clay:       #A34419;
+    --olive:      #5C6B45;
+    --pen:        #B23A2B;
+    --gold:       #B5842A;
+    --line:       rgba(26,29,40,0.09);
+    --radius:     6px;
+    --max:        1160px;
+    --serif:      ui-serif, Georgia, 'Times New Roman', serif;
+    --sans:       -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:var(--serif);
+    font-weight:600;
+    line-height:1.08;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 28px; }
+
+  a.skip-link{
+    position:absolute; left:-9999px; top:0; background:var(--ink); color:var(--paper);
+    padding:10px 16px; z-index:200; border-radius:var(--radius);
+  }
+  a.skip-link:focus{ left:16px; top:16px; }
+
+  :focus-visible{
+    outline: 2.5px solid var(--clay);
+    outline-offset: 3px;
+  }
+
+  /* ---------- nav ---------- */
+  header.site{
+    position:sticky; top:0; z-index:100;
+    background:rgba(252,251,249,0.85);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .brand{
+    font-family:var(--serif); font-weight:600; font-size:1.35rem;
+    text-decoration:none; display:flex; flex-direction:column; align-items:flex-start; gap:1px;
+    line-height:1.2;
+  }
+  .brand-sub{
+    font-family:var(--sans); font-size:0.7rem; font-weight:500;
+    letter-spacing:0.04em; color:var(--ink-soft);
+  }
+  .nav-links{
+    display:flex; gap:34px; list-style:none; margin:0; padding:0;
+    font-size:0.95rem; font-weight:500;
+  }
+  .nav-links a{
+    text-decoration:none; color:var(--ink-soft); position:relative; padding:4px 0;
+    transition:color 0.15s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px;
+    background:var(--gold); transform:scaleX(0); transform-origin:left;
+    transition:transform 0.2s ease;
+  }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+
+  .badge{
+    font-size:0.78rem; font-weight:600; color:var(--olive);
+    border:1px solid var(--olive); border-radius:999px; padding:5px 12px;
+    white-space:nowrap;
+  }
+  .nav-cta{
+    display:inline-block; background:var(--ink); color:var(--paper) !important;
+    text-decoration:none; font-weight:600; font-size:0.9rem;
+    padding:10px 18px; border-radius:var(--radius);
+    transition:background 0.15s ease, transform 0.15s ease;
+  }
+  .nav-cta:hover{ background:var(--clay); transform:translateY(-1px); }
+
+  .lang-link{
+    font-size:0.85rem; font-weight:700; text-decoration:none; color:var(--ink-soft);
+    border:1.5px solid var(--line); border-radius:999px; padding:6px 11px;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-link:hover{ border-color:var(--clay); color:var(--clay); }
+
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:var(--ink); margin:5px 0; }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; z-index:1; padding:96px 0 120px; }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.85rem; font-weight:600; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--clay); margin-bottom:20px;
+  }
+  .eyebrow::before{ content:"✎"; font-size:1rem; }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.2vw, 3.6rem);
+    max-width:12ch;
+  }
+  .hero h1 .accent{ font-style:italic; color:var(--clay); }
+  .hero p.lede{
+    margin-top:22px; font-size:1.12rem; color:var(--ink-soft); max-width:46ch;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:34px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:600; font-size:0.98rem; text-decoration:none;
+    padding:14px 24px; border-radius:var(--radius);
+    transition:transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary{ background:var(--clay); color:var(--paper); }
+  .btn-primary:hover{ background:#86360F; transform:translateY(-1px); box-shadow:0 6px 16px rgba(163,68,25,0.24); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+
+  .credentials{ list-style:none; padding:0; margin:30px 0 0; display:grid; gap:12px; }
+  .credentials li{
+    display:flex; gap:12px; align-items:flex-start; font-size:0.96rem; color:var(--ink);
+  }
+
+  /* ---------- signature: marked-up essay card ---------- */
+  .essay-card{
+    background:#FFFFFF;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:34px 32px 40px;
+    box-shadow:0 12px 32px rgba(26,29,40,0.08), 0 2px 6px rgba(26,29,40,0.04);
+    position:relative;
+  }
+  .draft-label{
+    display:inline-block; margin-bottom:12px;
+    font-family:var(--sans); font-size:0.68rem; font-weight:600;
+    letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-soft);
+    border:1px solid var(--line); padding:3px 11px; border-radius:999px;
+  }
+  .draft-label.is-after{
+    background:var(--ink); color:var(--paper); border-color:var(--ink);
+  }
+  .draft-before{ color:var(--ink-soft); }
+  .draft-after{ font-size:1.16rem; color:var(--ink); }
+  .draft-sep{ display:flex; align-items:center; gap:14px; margin:24px 0 22px; }
+  .draft-sep::before, .draft-sep::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .draft-arrow{ font-size:1rem; color:var(--clay); line-height:1; }
+  .essay-text{
+    font-family:var(--serif); font-size:1.06rem; line-height:1.85; color:var(--ink);
+  }
+  .mk{ position:relative; white-space:nowrap; }
+  .mk-strike{ text-decoration: line-through 1.6px var(--pen); text-decoration-skip-ink:none; }
+  .mk-under{ text-decoration: underline wavy 1.4px var(--pen); text-underline-offset:3px; }
+  .note{
+    font-family:var(--serif); font-style:italic; color:var(--pen); font-weight:600; font-size:1.05rem;
+    display:inline-block; line-height:1;
+  }
+  .note.margin{
+    display:block; margin-top:18px; padding-top:14px; border-top:1px dashed var(--line);
+    font-size:1rem; line-height:1.5; color:var(--clay);
+  }
+  .note.margin .star{ color:var(--gold); }
+
+  /* ---------- section scaffolding ---------- */
+  section{ position:relative; z-index:1; padding:112px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .section-head .eyebrow{ margin-bottom:14px; }
+  .section-head h2{ font-size:clamp(1.9rem, 3vw, 2.5rem); }
+  .section-head p{ margin-top:16px; color:var(--ink-soft); font-size:1.05rem; }
+
+  .divider{ border:none; border-top:1px solid var(--line); margin:0; }
+
+  /* ---------- offers ---------- */
+  .offers{ background:var(--paper-2); }
+  .offer-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; }
+  .offer-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:6px;
+    padding:32px 28px; transition:transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .offer-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(26,29,40,0.07); }
+  .offer-mark{
+    width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+    border:1.6px solid var(--pen); border-radius:50%; color:var(--pen);
+    font-family:var(--serif); font-size:1.15rem; font-weight:600; margin-bottom:20px;
+  }
+  .offer-card h3{ font-size:1.28rem; margin-bottom:10px; }
+  .offer-card p{ color:var(--ink-soft); font-size:0.98rem; margin:0; }
+  .offer-for{
+    display:inline-block; margin-top:16px; font-size:0.82rem; font-weight:600;
+    color:var(--olive); text-transform:uppercase; letter-spacing:0.03em;
+  }
+
+  /* ---------- about ---------- */
+  .about .wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center; }
+  .portrait{
+    aspect-ratio: 4/5; border-radius:6px;
+    background:
+      linear-gradient(155deg, var(--olive) 0%, var(--olive) 40%, var(--clay) 100%);
+    position:relative; overflow:hidden;
+    box-shadow:0 20px 40px rgba(26,29,40,0.12);
+  }
+  .portrait img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+  }
+  .portrait .tag{
+    position:absolute; bottom:22px; left:22px; background:rgba(26,29,40,0.85); color:var(--paper);
+    padding:9px 15px; border-radius:4px; font-size:0.85rem; font-weight:600;
+  }
+  .about-copy h2{ font-size:clamp(1.9rem, 3vw, 2.4rem); margin-bottom:20px; }
+  .about-copy p{ color:var(--ink-soft); font-size:1.03rem; margin:0 0 16px; }
+  .about-copy p:last-of-type{ margin-bottom:0; }
+  .cred-list{ list-style:none; padding:0; margin:26px 0 0; display:grid; gap:12px; }
+  .cred-list li{
+    display:flex; gap:12px; align-items:flex-start; font-size:0.96rem; color:var(--ink);
+  }
+  .cred-list .mark, .credentials .mark{ color:var(--clay); font-weight:700; margin-top:1px; }
+
+  /* ---------- how it works ---------- */
+  .steps{ counter-reset:step; }
+  .step-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:0;
+    border-top:1px solid var(--line);
+  }
+  .step{
+    counter-increment:step; padding:28px 24px 0 0; border-right:1px solid var(--line);
+  }
+  .step:last-child{ border-right:none; }
+  .step::before{
+    content: counter(step, decimal-leading-zero);
+    font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--clay);
+    display:block; margin-bottom:14px;
+  }
+  .step h3{ font-size:1.08rem; margin-bottom:8px; }
+  .step p{ color:var(--ink-soft); font-size:0.94rem; margin:0; }
+
+  /* ---------- format ---------- */
+  .format{ background:var(--ink); color:var(--paper); }
+  .format .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+  .format .section-head h2, .format .section-head p{ color:var(--paper); }
+  .format .section-head p{ opacity:0.72; }
+  .format-cards{ display:grid; gap:18px; }
+  .format-card{
+    border:1px solid rgba(252,251,249,0.18); border-radius:6px; padding:26px 26px;
+    display:flex; gap:18px; align-items:flex-start;
+  }
+  .format-card .pin{
+    width:34px; height:34px; flex:0 0 auto; border-radius:50%; background:var(--clay);
+    display:flex; align-items:center; justify-content:center; font-size:1.05rem;
+  }
+  .format-card h3{ color:var(--paper); font-size:1.08rem; margin-bottom:6px; }
+  .format-card p{ color:rgba(252,251,249,0.68); font-size:0.94rem; margin:0; }
+
+  /* ---------- testimonials ---------- */
+  .testi-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; }
+  .testi{
+    background:var(--paper-2); border-radius:6px; padding:32px 28px; position:relative;
+  }
+  .testi p.quote{
+    font-family:var(--serif); font-style:italic; font-size:1.08rem; line-height:1.55; margin:0 0 18px;
+  }
+  .testi .who{ font-size:0.85rem; color:var(--ink-soft); font-weight:600; }
+  .testi .stamp{
+    float:right; margin:0 0 6px 14px;
+    font-family:var(--serif); font-style:italic; color:var(--gold);
+    font-size:1rem; font-weight:700; white-space:nowrap;
+  }
+
+  /* ---------- contact ---------- */
+  .contact{ background:var(--paper-2); }
+  .contact .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+  .contact-form{ display:grid; gap:16px; }
+  .field{ display:grid; gap:7px; }
+  .field label{ font-size:0.88rem; font-weight:600; color:var(--ink); }
+  .field input, .field textarea{
+    font-family:var(--sans); font-size:0.98rem; padding:13px 14px;
+    border:1.5px solid var(--line); border-radius:var(--radius); background:var(--paper);
+    color:var(--ink); resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{ border-color:var(--clay); }
+  .contact-form .btn{ justify-self:start; margin-top:6px; }
+  .hp-field{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .form-status{ font-size:0.92rem; line-height:1.5; margin:2px 0 0; display:none; }
+  .form-status.is-ok{ display:block; color:var(--olive); font-weight:600; }
+  .form-status.is-err{ display:block; color:var(--pen); font-weight:600; }
+  .contact-form button[disabled]{ opacity:0.55; cursor:progress; }
+  .contact-side h2{ font-size:clamp(1.9rem, 3vw, 2.3rem); }
+  .contact-side p{ color:var(--ink-soft); margin-top:16px; font-size:1.02rem; }
+  .contact-detail{ margin-top:26px; display:grid; gap:10px; font-size:0.96rem; }
+  .contact-detail a{ text-decoration:none; color:var(--clay); font-weight:600; }
+
+  /* ---------- footer ---------- */
+  footer{ padding:56px 0; border-top:1px solid var(--line); }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer .brand{ font-size:1.1rem; }
+  .foot-links{ display:flex; gap:24px; list-style:none; padding:0; margin:0; font-size:0.88rem; color:var(--ink-soft); }
+  .foot-links a{ text-decoration:none; }
+  .foot-links a:hover{ color:var(--ink); }
+  .foot-note{ font-size:0.8rem; color:var(--ink-soft); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 920px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .offer-grid{ grid-template-columns:1fr; }
+    .about .wrap{ grid-template-columns:1fr; }
+    .portrait{ max-width:280px; }
+    .step-grid{ grid-template-columns:1fr 1fr; }
+    .step{ border-right:none; border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:24px; }
+    .format .wrap{ grid-template-columns:1fr; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .contact .wrap{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 720px){
+    .nav-links{
+      position:absolute; top:76px; left:0; right:0; background:var(--paper);
+      flex-direction:column; padding:20px 28px; gap:18px; border-bottom:1px solid var(--line);
+      display:none;
+    }
+    .nav-links.open{ display:flex; }
+    .nav-toggle{ display:block; }
+    .badge{ display:none; }
+    .step-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site">
+  <nav class="wrap">
+    <a href="#top" class="brand">Ciarán Conners<span class="brand-sub">English tutoring · Madrid &amp; online</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#lessons">Lessons</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <span class="badge">Madrid &amp; online</span>
+      <a href="es/" class="lang-link" hreflang="es">ES</a>
+      <a href="#contact" class="nav-cta">Book a call</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Private English tutoring · Madrid &amp; online</span>
+        <h1>English that sounds <span class="accent">like you.</span></h1>
+        <p class="lede">Friendly one-to-one lessons for teens applying to university, professionals writing under pressure, and anyone who’d like their English to feel more natural. We work on whatever you’ve actually got on your plate.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Book a free 20-minute call</a>
+          <a href="#how" class="btn btn-ghost">See how lessons work</a>
+        </div>
+        <ul class="credentials">
+          <li><span class="mark">—</span> Native speaker of American English</li>
+          <li><span class="mark">—</span> CELTA certified</li>
+          <li><span class="mark">—</span> English degree, Columbia University</li>
+          <li><span class="mark">—</span> In person in Madrid, or online anywhere</li>
+        </ul>
+      </div>
+
+      <div class="essay-card" aria-hidden="true">
+        <div class="draft-label">First draft</div>
+        <div class="essay-text draft-before">
+          In today's society, technology <span class="mk mk-strike">have</span> become an integral part of how we're <span class="mk mk-under">comunicating</span> with <span class="mk mk-under">eachother</span>, and <span class="mk mk-strike">it's</span> importance in daily life cannot be understated.
+        </div>
+        <div class="draft-sep"><span class="draft-arrow">↓</span></div>
+        <div class="draft-label is-after">After</div>
+        <div class="essay-text draft-after">
+          Technology has reshaped how we talk to each other — and we've barely stopped to notice.
+        </div>
+        <div class="note margin">
+          <span class="star">★</span> nice idea here — same point, half the words, and now it opens with what you actually want to say.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="offers" id="lessons">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What we work on</span>
+        <h2>Three kinds of English, one approach</h2>
+        <p>Every lesson starts with something real — your essay, your inbox, your slides. We work on what’s actually in front of you, never a worksheet.</p>
+      </div>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <div class="offer-mark">Aa</div>
+          <h3>College-prep English</h3>
+          <p>Personal statements and application essays that sound like you, not a thesaurus. We’ll practise interviews too.</p>
+          <span class="offer-for">For teens applying abroad</span>
+        </div>
+        <div class="offer-card">
+          <div class="offer-mark">✓</div>
+          <h3>Business &amp; professional English</h3>
+          <p>Emails that get answered, meetings you can steer, and presentations you won’t need to read off the slide.</p>
+          <span class="offer-for">For working professionals</span>
+        </div>
+        <div class="offer-card">
+          <div class="offer-mark">¶</div>
+          <h3>Essay &amp; academic writing</h3>
+          <p>Structure, argument and style — how to build a paragraph that earns the next one, even with a deadline looming.</p>
+          <span class="offer-for">For students &amp; researchers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="portrait">
+        <img src="ciaran.jpg" alt="Ciarán Conners, English tutor based in Madrid" width="800" height="800" loading="lazy" decoding="async">
+        <span class="tag">Ciarán · Madrid</span>
+      </div>
+      <div class="about-copy">
+        <span class="eyebrow">About your tutor</span>
+        <h2>Hi, I'm Ciarán.</h2>
+        <p>I’m a native American English speaker. I studied English at Columbia University and hold a CELTA, which is the difference between knowing a language and knowing how to teach it. Most of my students aren’t trying to sound smarter — they’re trying to sound like themselves, clearly, in a language that isn’t their first.</p>
+        <p>A lot of tutoring is really just careful reading — noticing what a sentence is trying to do, then helping it get there. That’s the part I enjoy most, and it’s what we’ll spend our time on.</p>
+        <ul class="cred-list">
+          <li><span class="mark">—</span> Native speaker of American English</li>
+          <li><span class="mark">—</span> CELTA certified, Cambridge English</li>
+          <li><span class="mark">—</span> BA in English, Columbia University</li>
+          <li><span class="mark">—</span> Teaching in Madrid, in person and online</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="steps" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>From first message to first draft</h2>
+      </div>
+      <div class="step-grid">
+        <div class="step">
+          <h3>Say hello</h3>
+          <p>Send a quick message about what you’re working on — an application, a job, a deadline. No pressure at all.</p>
+        </div>
+        <div class="step">
+          <h3>Free 20-minute call</h3>
+          <p>We’ll talk through your goals, and I’ll sketch out a plan built around them rather than a generic syllabus.</p>
+        </div>
+        <div class="step">
+          <h3>Tailored lessons</h3>
+          <p>Weekly sessions in Madrid or online, working on your own real material as we go.</p>
+        </div>
+        <div class="step">
+          <h3>Visible progress</h3>
+          <p>Regular feedback, so you can see what’s improved rather than just hope it has.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAT -->
+  <section class="format">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow">Where we meet</span>
+        <h2>In person in Madrid, or online from anywhere</h2>
+        <p>The same materials and the same attention, whichever suits your week.</p>
+      </div>
+      <div class="format-cards">
+        <div class="format-card">
+          <div class="pin">📍</div>
+          <div>
+            <h3>In person — Madrid</h3>
+            <p>Weekly sessions somewhere central enough to fit around work, school or a commute.</p>
+          </div>
+        </div>
+        <div class="format-card">
+          <div class="pin">💻</div>
+          <div>
+            <h3>Online — anywhere</h3>
+            <p>Video calls with shared documents, so edits happen live on the page rather than after the fact.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS — hidden until real student quotes are available.
+       Delete this comment wrapper (this line and the closing one) to switch it back on.
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What students say</span>
+        <h2>Sample feedback</h2>
+        <p>Placeholder quotes — swap these for real ones from your own students before publishing.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi">
+          <span class="stamp">✓ noted</span>
+          <p class="quote">"My personal statement finally sounded like me instead of a list of achievements."</p>
+          <div class="who">College applicant</div>
+        </div>
+        <div class="testi">
+          <span class="stamp">✓ noted</span>
+          <p class="quote">"I stopped dreading writing emails in English. That alone was worth it."</p>
+          <div class="who">Marketing manager</div>
+        </div>
+        <div class="testi">
+          <span class="stamp">✓ noted</span>
+          <p class="quote">"Every session ended with something I could actually use the next day."</p>
+          <div class="who">Graduate student</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-side">
+        <span class="eyebrow">Get in touch</span>
+        <h2>Start with a free call</h2>
+        <p>Tell me a little about what you’re working on — an application, a job, an exam, or a writing habit you’d like to shake. I’ll get back to you within 24 hours.</p>
+        <div class="contact-detail">
+          <div>📍 Madrid, Spain — in person &amp; online</div>
+          <div>↩️ Replies within 24 hours</div>
+        </div>
+      </div>
+      <!-- Paste your Formspree endpoint into the action below. Your email address is
+           configured in the Formspree dashboard, never here, so it stays off the page. -->
+      <form class="contact-form" id="contactForm" method="POST"
+            action="https://formspree.io/f/YOUR_FORM_ID" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label for="message">What are you working on?</label>
+          <textarea id="message" name="message" rows="4" placeholder="A college essay, a work presentation, general fluency…"></textarea>
+        </div>
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Leave this field empty</label>
+          <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-primary">Send message</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="brand">Ciarán Conners<span class="brand-sub">English tutoring · Madrid &amp; online</span></a>
+    <ul class="foot-links">
+      <li><a href="#lessons">Lessons</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="foot-note">© 2026 Ciarán Conners, Madrid.</span>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  var form = document.getElementById('contactForm');
+  var statusEl = document.getElementById('formStatus');
+  var MSG = {
+    unconfigured: 'This form isn\u2019t connected yet. Please check back shortly.',
+    sending:      'Sending\u2026',
+    ok:           'Thanks! Your message is on its way \u2014 I\u2019ll get back to you within 24 hours.',
+    err:          'Sorry, that didn\u2019t send. Please try again in a moment.'
+  };
+  function say(kind, text){
+    statusEl.className = 'form-status' + (kind ? ' is-' + kind : '');
+    statusEl.textContent = text;
+  }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    if (form.action.indexOf('YOUR_FORM_ID') !== -1) { say('err', MSG.unconfigured); return; }
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    say('', MSG.sending);
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r){
+      if (!r.ok) throw new Error('bad status');
+      form.reset();
+      say('ok', MSG.ok);
+    }).catch(function(){
+      say('err', MSG.err);
+    }).then(function(){
+      btn.disabled = false;
+    });
+  });
+</script>
+
+</body>
+</html>

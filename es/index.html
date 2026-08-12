@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciarán Conners — Clases de inglés, Madrid y online</title>
+<style>
+  :root{
+    --paper:      #FCFBF9;
+    --paper-2:    #F4F1EA;
+    --ink:        #1A1D28;
+    --ink-soft:   #565C6E;
+    --clay:       #A34419;
+    --olive:      #5C6B45;
+    --pen:        #B23A2B;
+    --gold:       #B5842A;
+    --line:       rgba(26,29,40,0.09);
+    --radius:     6px;
+    --max:        1160px;
+    --serif:      ui-serif, Georgia, 'Times New Roman', serif;
+    --sans:       -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:var(--serif);
+    font-weight:600;
+    line-height:1.08;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 28px; }
+
+  a.skip-link{
+    position:absolute; left:-9999px; top:0; background:var(--ink); color:var(--paper);
+    padding:10px 16px; z-index:200; border-radius:var(--radius);
+  }
+  a.skip-link:focus{ left:16px; top:16px; }
+
+  :focus-visible{
+    outline: 2.5px solid var(--clay);
+    outline-offset: 3px;
+  }
+
+  /* ---------- nav ---------- */
+  header.site{
+    position:sticky; top:0; z-index:100;
+    background:rgba(252,251,249,0.85);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .brand{
+    font-family:var(--serif); font-weight:600; font-size:1.35rem;
+    text-decoration:none; display:flex; flex-direction:column; align-items:flex-start; gap:1px;
+    line-height:1.2;
+  }
+  .brand-sub{
+    font-family:var(--sans); font-size:0.7rem; font-weight:500;
+    letter-spacing:0.04em; color:var(--ink-soft);
+  }
+  .nav-links{
+    display:flex; gap:34px; list-style:none; margin:0; padding:0;
+    font-size:0.95rem; font-weight:500;
+  }
+  .nav-links a{
+    text-decoration:none; color:var(--ink-soft); position:relative; padding:4px 0;
+    transition:color 0.15s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px;
+    background:var(--gold); transform:scaleX(0); transform-origin:left;
+    transition:transform 0.2s ease;
+  }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+
+  .badge{
+    font-size:0.78rem; font-weight:600; color:var(--olive);
+    border:1px solid var(--olive); border-radius:999px; padding:5px 12px;
+    white-space:nowrap;
+  }
+  .nav-cta{
+    display:inline-block; background:var(--ink); color:var(--paper) !important;
+    text-decoration:none; font-weight:600; font-size:0.9rem;
+    padding:10px 18px; border-radius:var(--radius);
+    transition:background 0.15s ease, transform 0.15s ease;
+  }
+  .nav-cta:hover{ background:var(--clay); transform:translateY(-1px); }
+
+  .lang-link{
+    font-size:0.85rem; font-weight:700; text-decoration:none; color:var(--ink-soft);
+    border:1.5px solid var(--line); border-radius:999px; padding:6px 11px;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-link:hover{ border-color:var(--clay); color:var(--clay); }
+
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:var(--ink); margin:5px 0; }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; z-index:1; padding:96px 0 120px; }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.85rem; font-weight:600; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--clay); margin-bottom:20px;
+  }
+  .eyebrow::before{ content:"✎"; font-size:1rem; }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.2vw, 3.6rem);
+    max-width:12ch;
+  }
+  .hero h1 .accent{ font-style:italic; color:var(--clay); }
+  .hero p.lede{
+    margin-top:22px; font-size:1.12rem; color:var(--ink-soft); max-width:46ch;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:34px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:600; font-size:0.98rem; text-decoration:none;
+    padding:14px 24px; border-radius:var(--radius);
+    transition:transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary{ background:var(--clay); color:var(--paper); }
+  .btn-primary:hover{ background:#86360F; transform:translateY(-1px); box-shadow:0 6px 16px rgba(163,68,25,0.24); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+
+  .credentials{ list-style:none; padding:0; margin:30px 0 0; display:grid; gap:12px; }
+  .credentials li{
+    display:flex; gap:12px; align-items:flex-start; font-size:0.96rem; color:var(--ink);
+  }
+
+  /* ---------- signature: marked-up essay card ---------- */
+  .essay-card{
+    background:#FFFFFF;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:34px 32px 40px;
+    box-shadow:0 12px 32px rgba(26,29,40,0.08), 0 2px 6px rgba(26,29,40,0.04);
+    position:relative;
+  }
+  .draft-label{
+    display:inline-block; margin-bottom:12px;
+    font-family:var(--sans); font-size:0.68rem; font-weight:600;
+    letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-soft);
+    border:1px solid var(--line); padding:3px 11px; border-radius:999px;
+  }
+  .draft-label.is-after{
+    background:var(--ink); color:var(--paper); border-color:var(--ink);
+  }
+  .draft-before{ color:var(--ink-soft); }
+  .draft-after{ font-size:1.16rem; color:var(--ink); }
+  .draft-sep{ display:flex; align-items:center; gap:14px; margin:24px 0 22px; }
+  .draft-sep::before, .draft-sep::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .draft-arrow{ font-size:1rem; color:var(--clay); line-height:1; }
+  .essay-text{
+    font-family:var(--serif); font-size:1.06rem; line-height:1.85; color:var(--ink);
+  }
+  .mk{ position:relative; white-space:nowrap; }
+  .mk-strike{ text-decoration: line-through 1.6px var(--pen); text-decoration-skip-ink:none; }
+  .mk-under{ text-decoration: underline wavy 1.4px var(--pen); text-underline-offset:3px; }
+  .note{
+    font-family:var(--serif); font-style:italic; color:var(--pen); font-weight:600; font-size:1.05rem;
+    display:inline-block; line-height:1;
+  }
+  .note.margin{
+    display:block; margin-top:18px; padding-top:14px; border-top:1px dashed var(--line);
+    font-size:1rem; line-height:1.5; color:var(--clay);
+  }
+  .note.margin .star{ color:var(--gold); }
+
+  /* ---------- section scaffolding ---------- */
+  section{ position:relative; z-index:1; padding:112px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .section-head .eyebrow{ margin-bottom:14px; }
+  .section-head h2{ font-size:clamp(1.9rem, 3vw, 2.5rem); }
+  .section-head p{ margin-top:16px; color:var(--ink-soft); font-size:1.05rem; }
+
+  .divider{ border:none; border-top:1px solid var(--line); margin:0; }
+
+  /* ---------- offers ---------- */
+  .offers{ background:var(--paper-2); }
+  .offer-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; }
+  .offer-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:6px;
+    padding:32px 28px; transition:transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .offer-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(26,29,40,0.07); }
+  .offer-mark{
+    width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+    border:1.6px solid var(--pen); border-radius:50%; color:var(--pen);
+    font-family:var(--serif); font-size:1.15rem; font-weight:600; margin-bottom:20px;
+  }
+  .offer-card h3{ font-size:1.28rem; margin-bottom:10px; }
+  .offer-card p{ color:var(--ink-soft); font-size:0.98rem; margin:0; }
+  .offer-for{
+    display:inline-block; margin-top:16px; font-size:0.82rem; font-weight:600;
+    color:var(--olive); text-transform:uppercase; letter-spacing:0.03em;
+  }
+
+  /* ---------- about ---------- */
+  .about .wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center; }
+  .portrait{
+    aspect-ratio: 4/5; border-radius:6px;
+    background:
+      linear-gradient(155deg, var(--olive) 0%, var(--olive) 40%, var(--clay) 100%);
+    position:relative; overflow:hidden;
+    box-shadow:0 20px 40px rgba(26,29,40,0.12);
+  }
+  .portrait img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+  }
+  .portrait .tag{
+    position:absolute; bottom:22px; left:22px; background:rgba(26,29,40,0.85); color:var(--paper);
+    padding:9px 15px; border-radius:4px; font-size:0.85rem; font-weight:600;
+  }
+  .about-copy h2{ font-size:clamp(1.9rem, 3vw, 2.4rem); margin-bottom:20px; }
+  .about-copy p{ color:var(--ink-soft); font-size:1.03rem; margin:0 0 16px; }
+  .about-copy p:last-of-type{ margin-bottom:0; }
+  .cred-list{ list-style:none; padding:0; margin:26px 0 0; display:grid; gap:12px; }
+  .cred-list li{
+    display:flex; gap:12px; align-items:flex-start; font-size:0.96rem; color:var(--ink);
+  }
+  .cred-list .mark, .credentials .mark{ color:var(--clay); font-weight:700; margin-top:1px; }
+
+  /* ---------- how it works ---------- */
+  .steps{ counter-reset:step; }
+  .step-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:0;
+    border-top:1px solid var(--line);
+  }
+  .step{
+    counter-increment:step; padding:28px 24px 0 0; border-right:1px solid var(--line);
+  }
+  .step:last-child{ border-right:none; }
+  .step::before{
+    content: counter(step, decimal-leading-zero);
+    font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--clay);
+    display:block; margin-bottom:14px;
+  }
+  .step h3{ font-size:1.08rem; margin-bottom:8px; }
+  .step p{ color:var(--ink-soft); font-size:0.94rem; margin:0; }
+
+  /* ---------- format ---------- */
+  .format{ background:var(--ink); color:var(--paper); }
+  .format .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+  .format .section-head h2, .format .section-head p{ color:var(--paper); }
+  .format .section-head p{ opacity:0.72; }
+  .format-cards{ display:grid; gap:18px; }
+  .format-card{
+    border:1px solid rgba(252,251,249,0.18); border-radius:6px; padding:26px 26px;
+    display:flex; gap:18px; align-items:flex-start;
+  }
+  .format-card .pin{
+    width:34px; height:34px; flex:0 0 auto; border-radius:50%; background:var(--clay);
+    display:flex; align-items:center; justify-content:center; font-size:1.05rem;
+  }
+  .format-card h3{ color:var(--paper); font-size:1.08rem; margin-bottom:6px; }
+  .format-card p{ color:rgba(252,251,249,0.68); font-size:0.94rem; margin:0; }
+
+  /* ---------- testimonials ---------- */
+  .testi-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; }
+  .testi{
+    background:var(--paper-2); border-radius:6px; padding:32px 28px; position:relative;
+  }
+  .testi p.quote{
+    font-family:var(--serif); font-style:italic; font-size:1.08rem; line-height:1.55; margin:0 0 18px;
+  }
+  .testi .who{ font-size:0.85rem; color:var(--ink-soft); font-weight:600; }
+  .testi .stamp{
+    float:right; margin:0 0 6px 14px;
+    font-family:var(--serif); font-style:italic; color:var(--gold);
+    font-size:1rem; font-weight:700; white-space:nowrap;
+  }
+
+  /* ---------- contact ---------- */
+  .contact{ background:var(--paper-2); }
+  .contact .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+  .contact-form{ display:grid; gap:16px; }
+  .field{ display:grid; gap:7px; }
+  .field label{ font-size:0.88rem; font-weight:600; color:var(--ink); }
+  .field input, .field textarea{
+    font-family:var(--sans); font-size:0.98rem; padding:13px 14px;
+    border:1.5px solid var(--line); border-radius:var(--radius); background:var(--paper);
+    color:var(--ink); resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{ border-color:var(--clay); }
+  .contact-form .btn{ justify-self:start; margin-top:6px; }
+  .hp-field{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .form-status{ font-size:0.92rem; line-height:1.5; margin:2px 0 0; display:none; }
+  .form-status.is-ok{ display:block; color:var(--olive); font-weight:600; }
+  .form-status.is-err{ display:block; color:var(--pen); font-weight:600; }
+  .contact-form button[disabled]{ opacity:0.55; cursor:progress; }
+  .contact-side h2{ font-size:clamp(1.9rem, 3vw, 2.3rem); }
+  .contact-side p{ color:var(--ink-soft); margin-top:16px; font-size:1.02rem; }
+  .contact-detail{ margin-top:26px; display:grid; gap:10px; font-size:0.96rem; }
+  .contact-detail a{ text-decoration:none; color:var(--clay); font-weight:600; }
+
+  /* ---------- footer ---------- */
+  footer{ padding:56px 0; border-top:1px solid var(--line); }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer .brand{ font-size:1.1rem; }
+  .foot-links{ display:flex; gap:24px; list-style:none; padding:0; margin:0; font-size:0.88rem; color:var(--ink-soft); }
+  .foot-links a{ text-decoration:none; }
+  .foot-links a:hover{ color:var(--ink); }
+  .foot-note{ font-size:0.8rem; color:var(--ink-soft); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 920px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .offer-grid{ grid-template-columns:1fr; }
+    .about .wrap{ grid-template-columns:1fr; }
+    .portrait{ max-width:280px; }
+    .step-grid{ grid-template-columns:1fr 1fr; }
+    .step{ border-right:none; border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:24px; }
+    .format .wrap{ grid-template-columns:1fr; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .contact .wrap{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 720px){
+    .nav-links{
+      position:absolute; top:76px; left:0; right:0; background:var(--paper);
+      flex-direction:column; padding:20px 28px; gap:18px; border-bottom:1px solid var(--line);
+      display:none;
+    }
+    .nav-links.open{ display:flex; }
+    .nav-toggle{ display:block; }
+    .badge{ display:none; }
+    .step-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Ir al contenido</a>
+
+<header class="site">
+  <nav class="wrap">
+    <a href="#top" class="brand">Ciarán Conners<span class="brand-sub">Clases de inglés · Madrid y online</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#lessons">Clases</a></li>
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#how">Cómo funciona</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <span class="badge">Madrid y online</span>
+      <a href="../" class="lang-link" hreflang="en">EN</a>
+      <a href="#contact" class="nav-cta">Reserva una llamada</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Profesor nativo · Madrid y online</span>
+        <h1>Un inglés que suena <span class="accent">a ti.</span></h1>
+        <p class="lede">Clases particulares y cercanas para adolescentes que preparan su solicitud a la universidad, profesionales que escriben bajo presión y cualquier persona que quiera que su inglés suene natural. Trabajamos con lo que de verdad tienes entre manos.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Reserva una llamada gratuita de 20 minutos</a>
+          <a href="#how" class="btn btn-ghost">Mira cómo funcionan las clases</a>
+        </div>
+        <ul class="credentials">
+          <li><span class="mark">—</span> Profesor nativo de inglés americano</li>
+          <li><span class="mark">—</span> Certificado CELTA</li>
+          <li><span class="mark">—</span> Licenciatura en Inglés, Universidad de Columbia</li>
+          <li><span class="mark">—</span> Presencial en Madrid u online</li>
+        </ul>
+      </div>
+
+      <div class="essay-card" aria-hidden="true">
+        <div class="draft-label">Primer borrador</div>
+        <div class="essay-text draft-before">
+          In today's society, technology <span class="mk mk-strike">have</span> become an integral part of how we're <span class="mk mk-under">comunicating</span> with <span class="mk mk-under">eachother</span>, and <span class="mk mk-strike">it's</span> importance in daily life cannot be understated.
+        </div>
+        <div class="draft-sep"><span class="draft-arrow">↓</span></div>
+        <div class="draft-label is-after">Después</div>
+        <div class="essay-text draft-after">
+          Technology has reshaped how we talk to each other — and we've barely stopped to notice.
+        </div>
+        <div class="note margin">
+          <span class="star">★</span> muy buena idea de fondo — la misma idea con la mitad de palabras, y ahora empieza por lo que de verdad quieres decir.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="offers" id="lessons">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">En qué trabajamos</span>
+        <h2>Tres tipos de inglés, un mismo enfoque</h2>
+        <p>Cada clase empieza con algo real: tu redacción, tus correos, tus diapositivas. Trabajamos con lo que tienes delante, nunca con una ficha de ejercicios.</p>
+      </div>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <div class="offer-mark">Aa</div>
+          <h3>Inglés para la universidad</h3>
+          <p>Cartas de motivación y ensayos de admisión que suenan a ti, no a un diccionario de sinónimos. También practicamos la entrevista.</p>
+          <span class="offer-for">Para adolescentes que aplican fuera</span>
+        </div>
+        <div class="offer-card">
+          <div class="offer-mark">✓</div>
+          <h3>Inglés profesional y de negocios</h3>
+          <p>Correos que reciben respuesta, reuniones que puedes dirigir y presentaciones que no vas a tener que leer de la diapositiva.</p>
+          <span class="offer-for">Para profesionales en activo</span>
+        </div>
+        <div class="offer-card">
+          <div class="offer-mark">¶</div>
+          <h3>Redacción académica y ensayos</h3>
+          <p>Estructura, argumento y estilo: cómo construir un párrafo que se gane el siguiente, aunque tengas la entrega encima.</p>
+          <span class="offer-for">Para estudiantes e investigadores</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="portrait">
+        <img src="../ciaran.jpg" alt="Ciarán Conners, profesor de inglés en Madrid" width="800" height="800" loading="lazy" decoding="async">
+        <span class="tag">Ciarán · Madrid</span>
+      </div>
+      <div class="about-copy">
+        <span class="eyebrow">Sobre tu profesor</span>
+        <h2>Hola, soy Ciarán.</h2>
+        <p>Soy hablante nativo de inglés americano. Estudié Inglés en la Universidad de Columbia y tengo el CELTA, que es la diferencia entre saber un idioma y saber enseñarlo. La mayoría de mis alumnos no buscan sonar más inteligentes: buscan sonar como ellos mismos, con claridad, en un idioma que no es el suyo.</p>
+        <p>Buena parte de las clases consiste sencillamente en leer con calma: ver qué intenta decir una frase y ayudarla a conseguirlo. Es la parte que más me gusta, y es en lo que vamos a pasar el tiempo.</p>
+        <ul class="cred-list">
+          <li><span class="mark">—</span> Hablante nativo de inglés americano</li>
+          <li><span class="mark">—</span> Certificado CELTA, Cambridge English</li>
+          <li><span class="mark">—</span> Licenciatura en Inglés, Universidad de Columbia</li>
+          <li><span class="mark">—</span> Clases en Madrid, presenciales y online</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="steps" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2>Del primer mensaje al primer borrador</h2>
+      </div>
+      <div class="step-grid">
+        <div class="step">
+          <h3>Escríbeme</h3>
+          <p>Cuéntame en qué estás trabajando: una solicitud, un trabajo, una fecha de entrega. Sin ningún compromiso.</p>
+        </div>
+        <div class="step">
+          <h3>Llamada gratuita de 20 minutos</h3>
+          <p>Hablamos de tus objetivos y te propongo un plan pensado para ti, no un temario genérico.</p>
+        </div>
+        <div class="step">
+          <h3>Clases a medida</h3>
+          <p>Sesiones semanales, en Madrid u online, trabajando siempre con tu material real.</p>
+        </div>
+        <div class="step">
+          <h3>Progreso visible</h3>
+          <p>Feedback constante, para que veas lo que has mejorado y no tengas solo la sensación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAT -->
+  <section class="format">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow">Dónde nos vemos</span>
+        <h2>Presencial en Madrid, u online desde cualquier lugar</h2>
+        <p>El mismo material y la misma atención, elijas la opción que elijas cada semana.</p>
+      </div>
+      <div class="format-cards">
+        <div class="format-card">
+          <div class="pin">📍</div>
+          <div>
+            <h3>Presencial — Madrid</h3>
+            <p>Sesiones semanales en un sitio lo bastante céntrico para encajar con el trabajo, las clases o el trayecto.</p>
+          </div>
+        </div>
+        <div class="format-card">
+          <div class="pin">💻</div>
+          <div>
+            <h3>Online — desde cualquier lugar</h3>
+            <p>Videollamadas con documentos compartidos, para ir corrigiendo en directo sobre el propio texto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS — oculto hasta tener opiniones reales de alumnos.
+       Borra este envoltorio de comentario (esta línea y la de cierre) para volver a activarlo.
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Lo que dicen los alumnos</span>
+        <h2>Opiniones de muestra</h2>
+        <p>Citas de ejemplo — sustitúyelas por opiniones reales de tus alumnos antes de publicar.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi">
+          <span class="stamp">✓ visto</span>
+          <p class="quote">"Mi carta de motivación por fin sonaba a mí, y no a una lista de logros."</p>
+          <div class="who">Aspirante a la universidad</div>
+        </div>
+        <div class="testi">
+          <span class="stamp">✓ visto</span>
+          <p class="quote">"Dejé de temerle a escribir correos en inglés. Solo por eso ya mereció la pena."</p>
+          <div class="who">Responsable de marketing</div>
+        </div>
+        <div class="testi">
+          <span class="stamp">✓ visto</span>
+          <p class="quote">"Cada clase terminaba con algo que podía usar al día siguiente."</p>
+          <div class="who">Estudiante de posgrado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-side">
+        <span class="eyebrow">Ponte en contacto</span>
+        <h2>Empieza con una llamada gratuita</h2>
+        <p>Cuéntame un poco en qué estás trabajando: una solicitud, un trabajo, un examen o esa costumbre al escribir que te gustaría cambiar. Te respondo en menos de 24 horas.</p>
+        <div class="contact-detail">
+          <div>📍 Madrid, España — presencial y online</div>
+          <div>↩️ Respondo en menos de 24 horas</div>
+        </div>
+      </div>
+      <!-- Pega aquí tu endpoint de Formspree. Tu dirección de correo se configura en el
+           panel de Formspree, nunca en esta página, así que no queda expuesta. -->
+      <form class="contact-form" id="contactForm" method="POST"
+            action="https://formspree.io/f/YOUR_FORM_ID" novalidate>
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required>
+        </div>
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
+        </div>
+        <div class="field">
+          <label for="message">¿En qué estás trabajando?</label>
+          <textarea id="message" name="message" rows="4" placeholder="Un ensayo para la universidad, una presentación de trabajo, fluidez general…"></textarea>
+        </div>
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Deja este campo vacío</label>
+          <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="brand">Ciarán Conners<span class="brand-sub">Clases de inglés · Madrid y online</span></a>
+    <ul class="foot-links">
+      <li><a href="#lessons">Clases</a></li>
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <span class="foot-note">© 2026 Ciarán Conners, Madrid.</span>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  var form = document.getElementById('contactForm');
+  var statusEl = document.getElementById('formStatus');
+  var MSG = {
+    unconfigured: 'Este formulario a\u00fan no est\u00e1 conectado. Vuelve a intentarlo en un rato.',
+    sending:      'Enviando\u2026',
+    ok:           '\u00a1Gracias! Tu mensaje ya est\u00e1 en camino \u2014 te respondo en menos de 24 horas.',
+    err:          'Vaya, no se ha podido enviar. \u00bfPruebas otra vez en un momento?'
+  };
+  function say(kind, text){
+    statusEl.className = 'form-status' + (kind ? ' is-' + kind : '');
+    statusEl.textContent = text;
+  }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    if (form.action.indexOf('YOUR_FORM_ID') !== -1) { say('err', MSG.unconfigured); return; }
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    say('', MSG.sending);
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r){
+      if (!r.ok) throw new Error('bad status');
+      form.reset();
+      say('ok', MSG.ok);
+    }).catch(function(){
+      say('err', MSG.err);
+    }).then(function(){
+      btn.disabled = false;
+    });
+  });
+</script>
+
+</body>
+</html>
